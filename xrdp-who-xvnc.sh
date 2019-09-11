@@ -22,7 +22,7 @@ ps h -C Xvnc -o user,pid,lstart,cmd | while read _ps; do
 	start_time=$(date -d "${timestring}" +"%Y-%m-%d %H:%M:%S");
 	[ $(date -d "${start_time}" +%s) -lt $(date -d "-30 days" +%s) ] && start_time="${YELLOW}${start_time}${ENDCOLOR}"
 	read username pid geometry colorbits <<< $(echo ${_ps} | awk '{print $1,$2,$11,$13}');
-	netstat -tupn 2>/dev/null | grep -q [[:space:]]${pid}\/Xvnc[[:space:]]*$ && status="${GREEN}active${ENDCOLOR}" || status="${RED}disconnected${ENDCOLOR}";
+	ss -tep 2>/dev/null | grep -q pid\=${pid}, && status="${GREEN}active${ENDCOLOR}" || status="${RED}disconnected${ENDCOLOR}";
 	printf "${_printf}" ${pid} ${username} "${start_time}" ${geometry} ${colorbits} "${status}";
 done
 echo ""
