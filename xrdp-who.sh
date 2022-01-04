@@ -17,7 +17,7 @@ sesman_children=$(ps --no-header -o pid --ppid ${sesman_pid})
 # should be xrdp-chansrv. The first two should be running as the logged in
 # user, but on some older versions, the chansrv process may not be.
 for ppid in ${sesman_children}; do 
-    read username session lstart <<< $(ps --no-header -o user,comm,lstart --ppid ${ppid} | sed -n '2p')
+    read username session lstart <<< $(ps --no-header -o user:20,comm,lstart --ppid ${ppid} | sed -n '2p')
     start_time=$(date --date="${lstart}" +"%Y-%m-%d %H:%M")
     printf "%-23s%s (%s)\n" "${username}" "${start_time}" "${session}"
 done
