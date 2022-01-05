@@ -12,12 +12,12 @@ REVERSE=$(tput smso)
 UNDERLINE=$(tput smul)
 
 # Format string for printf
-_printf="%7s %-10s %-19s %-12s\n"
+_printf="%7s %-20s %-19s %-12s\n"
 
 # Print header
 printf "\n${_printf}" PID USERNAME START_TIME STATUS
 
-ps h -C Xorg -o user,pid,lstart,cmd | grep xrdp | while read _ps; do
+ps h -C Xorg -o user:20,pid,lstart,cmd | grep xrdp | while read _ps; do
     timestring=$(echo ${_ps} | awk '{print $3,$4,$5,$6,$7}');
     start_time=$(date -d "${timestring}" +"%Y-%m-%d %H:%M:%S");
     [ $(date -d "${start_time}" +%s) -lt $(date -d "-30 days" +%s) ] && start_time="${YELLOW}${start_time}${ENDCOLOR}"
