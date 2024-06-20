@@ -12,7 +12,7 @@ Print usernames and login times for xrdp users formatted like the output of the 
 
 #### How it works
 
-Determine who is logged in with xrdp by looking at the grandchildren processes of the `xrdp-sesman` service. The second (relative to each child) grandchild process should be the session backend executable.
+Determine who is logged in with xrdp by looking at the grandchildren processes of the `xrdp-sesman` service. The first or second (depending on xrdp version and relative to each child) grandchild process should be the session backend executable.
 
 I have only tested this with the Xorg and Xvnc backends.
 
